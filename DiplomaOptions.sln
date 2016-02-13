@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomaDataModel", "DiplomaDataModel\DiplomaDataModel.csproj", "{056A2F19-F431-4A2A-8B9E-AD541C12DCCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OptionsWebsite", "OptionsWebsite\OptionsWebsite.csproj", "{322D83AC-B5EA-4396-8DC4-00839C9096AD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{056A2F19-F431-4A2A-8B9E-AD541C12DCCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{056A2F19-F431-4A2A-8B9E-AD541C12DCCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{056A2F19-F431-4A2A-8B9E-AD541C12DCCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{056A2F19-F431-4A2A-8B9E-AD541C12DCCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{322D83AC-B5EA-4396-8DC4-00839C9096AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{322D83AC-B5EA-4396-8DC4-00839C9096AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{322D83AC-B5EA-4396-8DC4-00839C9096AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{322D83AC-B5EA-4396-8DC4-00839C9096AD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
