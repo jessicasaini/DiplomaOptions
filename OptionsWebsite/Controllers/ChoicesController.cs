@@ -39,10 +39,10 @@ namespace OptionsWebsite.Controllers
         // GET: Choices/Create
         public ActionResult Create()
         {
-            ViewBag.FirstChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
-            ViewBag.FourthChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
-            ViewBag.SecondChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
-            ViewBag.ThirdChoiceOptionId = new SelectList(db.Options, "OptionId", "Title");
+            ViewBag.FirstChoiceOptionId = new SelectList(db.Options.Where(o => o.IsActive == true), "OptionId", "Title");
+            ViewBag.FourthChoiceOptionId = new SelectList(db.Options.Where(o => o.IsActive == true), "OptionId", "Title");
+            ViewBag.SecondChoiceOptionId = new SelectList(db.Options.Where(o => o.IsActive == true), "OptionId", "Title");
+            ViewBag.ThirdChoiceOptionId = new SelectList(db.Options.Where(o => o.IsActive == true), "OptionId", "Title");
             ViewBag.YearTermId = new SelectList(db.YearTerms, "YearTermId", "YearTermId");
             return View();
         }
