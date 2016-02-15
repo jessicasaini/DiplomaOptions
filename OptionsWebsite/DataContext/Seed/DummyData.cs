@@ -44,36 +44,43 @@ namespace OptionsWebsite.Models.BCITModels
             {
                 new Option
                 {
+                    OptionId = 0,
                     Title = "Data Communications",
                     IsActive = true
                 },
                 new Option
                 {
+                    OptionId = 1,
                     Title = "Client Server",
                     IsActive = true
                 },
                 new Option
                 {
+                    OptionId = 2,
                     Title = "Digital Processing",
                     IsActive = true
                 },
                 new Option
                 {
+                    OptionId = 3,
                     Title = "Information Systems",
                     IsActive = true
                 },
                 new Option
                 {
+                    OptionId = 4,
                     Title = "Database",
                     IsActive = false
                 },
                 new Option
                 {
+                    OptionId = 5,
                     Title = "Web & Mobile",
                     IsActive = true
                 },
                 new Option
                 {
+                    OptionId = 6,
                     Title = "Tech Pro",
                     IsActive = true
                 },
@@ -81,11 +88,5 @@ namespace OptionsWebsite.Models.BCITModels
 
             return Options;
         }
-
-        //[Key]
-        //public int OptionId { get; set; }
-        //[StringLength(50, ErrorMessage = "The {0} must be between {2} and {1} characters.", MinimumLength = 5)]
-        //public string Title { get; set; }
-        //public bool IsActive { get; set; }
     }
 }
