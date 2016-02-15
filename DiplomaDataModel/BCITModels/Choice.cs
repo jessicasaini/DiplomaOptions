@@ -17,8 +17,12 @@ namespace OptionsWebsite.Models.BCITModels
         [ForeignKey("YearTermId")]
         public YearTerm YearTerm { get; set; }
 
+        [StringLength(9, ErrorMessage = "The {0} must be between {2} and {1} characters.", MinimumLength = 5)]
         public string StudentId { get; set; }
+
+        [StringLength(40, ErrorMessage = "The {0} must be between {2} and {1} characters.", MinimumLength = 1)]
         public string StudentFirstName { get; set; }
+        [StringLength(40, ErrorMessage = "The {0} must be between {2} and {1} characters.", MinimumLength = 1)]
         public string StudentLastName { get; set; }
 
         [Display(Name = "First Choice: ")]
