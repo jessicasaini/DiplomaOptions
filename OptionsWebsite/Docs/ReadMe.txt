@@ -1,4 +1,4 @@
-﻿Enable-Migrations -ContextTypeName BCITContext -MigrationsDirectory Migrations\BCITMigrations
+﻿Enable-Migrations -ContextProject DiplomaDataModel -ContextTypeName BCITContext -MigrationsDirectory Migrations\BCITMigrations
 
 add-migration -ConfigurationTypeName OptionsWebsite.Migrations.BCITMigrations.Configuration "InitialCreate"
 
