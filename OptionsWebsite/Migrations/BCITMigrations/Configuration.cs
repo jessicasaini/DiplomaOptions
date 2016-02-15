@@ -1,6 +1,6 @@
 namespace OptionsWebsite.Migrations.BCITMigrations
 {
-    using Models.BCITModels;
+    using Models.BCITModels;    //using Models.BCITModels;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;

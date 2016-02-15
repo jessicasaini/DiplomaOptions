@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OptionsWebsite.Models.BCITModels
 {
-    class DummyData
+    public class DummyData
     {
         public static List<YearTerm> GetYearTerm()
         {
@@ -44,43 +44,36 @@ namespace OptionsWebsite.Models.BCITModels
             {
                 new Option
                 {
-                    OptionId = 0,
                     Title = "Data Communications",
                     IsActive = true
                 },
                 new Option
                 {
-                    OptionId = 1,
                     Title = "Client Server",
                     IsActive = true
                 },
                 new Option
                 {
-                    OptionId = 2,
                     Title = "Digital Processing",
                     IsActive = true
                 },
                 new Option
-                {
-                    OptionId = 3,
+                { 
                     Title = "Information Systems",
                     IsActive = true
                 },
                 new Option
                 {
-                    OptionId = 4,
                     Title = "Database",
                     IsActive = false
                 },
                 new Option
                 {
-                    OptionId = 5,
                     Title = "Web & Mobile",
                     IsActive = true
                 },
                 new Option
-                {
-                    OptionId = 6,
+                { 
                     Title = "Tech Pro",
                     IsActive = false
                 },
