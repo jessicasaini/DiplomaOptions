@@ -199,8 +199,13 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="DataContext\BCITContext.cs" />
+    <Compile Include="DataContext\Seed\DummyData.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\BCITMigrations\201602150327266_InitialCreate.cs" />
+    <Compile Include="Migrations\BCITMigrations\201602150327266_InitialCreate.Designer.cs">
+      <DependentUpon>201602150327266_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\BCITMigrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -287,6 +292,11 @@
       <Project>{056a2f19-f431-4a2a-8b9e-ad541c12dccd}</Project>
       <Name>DiplomaDataModel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\BCITMigrations\201602150327266_InitialCreate.resx">
+      <DependentUpon>201602150327266_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
