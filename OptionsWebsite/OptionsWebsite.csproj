@@ -201,8 +201,6 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OptionsController.cs" />
     <Compile Include="Controllers\YearTermsController.cs" />
-    <Compile Include="DataContext\BCITContext.cs" />
-    <Compile Include="DataContext\Seed\DummyData.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -211,8 +209,12 @@
       <DependentUpon>201602152116282_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\BCITMigrations\Configuration.cs" />
+    <Compile Include="Migrations\IdentityMigrations\201602152234215_InitialCreate.cs" />
+    <Compile Include="Migrations\IdentityMigrations\201602152234215_InitialCreate.Designer.cs">
+      <DependentUpon>201602152234215_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\IdentityMigrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -314,6 +316,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\BCITMigrations\201602152116282_InitialCreate.resx">
       <DependentUpon>201602152116282_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\IdentityMigrations\201602152234215_InitialCreate.resx">
+      <DependentUpon>201602152234215_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
