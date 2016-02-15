@@ -14,25 +14,21 @@ namespace OptionsWebsite.Models.BCITModels
             List<YearTerm> YearTerms = new List<YearTerm>()
             {
                 new YearTerm {
-                    YearTermId = 0,
                     Year = 2015,
                     Term = 20,
                     IsDefault = false
                 },
                 new YearTerm {
-                    YearTermId = 1,
                     Year = 2015,
                     Term = 30,
                     IsDefault = false
                 },
                 new YearTerm {
-                    YearTermId = 2,
                     Year = 2016,
                     Term = 10,
                     IsDefault = false
                 },
                 new YearTerm {
-                    YearTermId = 3,
                     Year = 2016,
                     Term = 30,
                     IsDefault = true

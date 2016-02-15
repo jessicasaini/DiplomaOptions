@@ -31,13 +31,13 @@ namespace OptionsWebsite.Migrations.BCITMigrations
 
 
             context.YearTerms.AddOrUpdate(
-                y => y.YearTermId,
+                y => new { y.Year, y.Term },
                 DummyData.GetYearTerm().ToArray()
             );
             context.SaveChanges();
 
             context.Options.AddOrUpdate(
-                o => o.OptionId,
+                o => new { o.Title },
                 DummyData.GetOption().ToArray()
             );
             context.SaveChanges();
