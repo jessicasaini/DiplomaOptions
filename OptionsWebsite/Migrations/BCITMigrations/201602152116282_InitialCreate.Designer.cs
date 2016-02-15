@@ -13,7 +13,7 @@ namespace OptionsWebsite.Migrations.BCITMigrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201602150327266_InitialCreate"; }
+            get { return "201602152116282_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source
