@@ -15,12 +15,14 @@ namespace OptionsWebsite.Controllers
         private BCITContext db = new BCITContext();
 
         // GET: YearTerms
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View(db.YearTerms.ToList());
         }
 
         // GET: YearTerms/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -36,6 +38,7 @@ namespace OptionsWebsite.Controllers
         }
 
         // GET: YearTerms/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -46,6 +49,7 @@ namespace OptionsWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "YearTermId,Year,Term,IsDefault")] YearTerm yearTerm)
         {
             if (ModelState.IsValid)
@@ -59,6 +63,7 @@ namespace OptionsWebsite.Controllers
         }
 
         // GET: YearTerms/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -78,6 +83,7 @@ namespace OptionsWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "YearTermId,Year,Term,IsDefault")] YearTerm yearTerm)
         {
             if (ModelState.IsValid)
@@ -90,6 +96,7 @@ namespace OptionsWebsite.Controllers
         }
 
         // GET: YearTerms/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -107,6 +114,7 @@ namespace OptionsWebsite.Controllers
         // POST: YearTerms/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             YearTerm yearTerm = db.YearTerms.Find(id);

@@ -15,6 +15,8 @@ namespace OptionsWebsite.Controllers
         private BCITContext db = new BCITContext();
 
         // GET: Choices
+        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var choices = db.Choices.Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).Include(c => c.YearTerm);
@@ -22,6 +24,7 @@ namespace OptionsWebsite.Controllers
         }
 
         // GET: Choices/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +40,8 @@ namespace OptionsWebsite.Controllers
         }
 
         // GET: Choices/Create
+        [Authorize(Roles = "Student, Admin")]
+       // [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.FirstChoiceOptionId = new SelectList(db.Options.Where(o => o.IsActive == true), "OptionId", "Title");
@@ -52,6 +57,8 @@ namespace OptionsWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Student, Admin")]
         public ActionResult Create([Bind(Include = "ChoiceId,YearTermId,StudentId,StudentFirstName,StudentLastName,FirstChoiceOptionId,SecondChoiceOptionId,ThirdChoiceOptionId,FourthChoiceOptionId,SelectionDate")] Choice choice)
         {
             if (ModelState.IsValid)
@@ -70,6 +77,7 @@ namespace OptionsWebsite.Controllers
         }
 
         // GET: Choices/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -94,6 +102,7 @@ namespace OptionsWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "ChoiceId,YearTermId,StudentId,StudentFirstName,StudentLastName,FirstChoiceOptionId,SecondChoiceOptionId,ThirdChoiceOptionId,FourthChoiceOptionId,SelectionDate")] Choice choice)
         {
             if (ModelState.IsValid)
@@ -111,6 +120,7 @@ namespace OptionsWebsite.Controllers
         }
 
         // GET: Choices/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -128,6 +138,7 @@ namespace OptionsWebsite.Controllers
         // POST: Choices/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Choice choice = db.Choices.Find(id);
