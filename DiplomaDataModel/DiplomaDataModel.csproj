@@ -89,6 +89,8 @@
   <ItemGroup>
     <Compile Include="BCITModels\BCITContext.cs" />
     <Compile Include="BCITModels\Choice.cs" />
+    <Compile Include="BCITModels\CustomValidation\CheckOptions.cs" />
+    <Compile Include="BCITModels\CustomValidation\ExcludeChar.cs" />
     <Compile Include="BCITModels\Option.cs" />
     <Compile Include="BCITModels\Seed\DummyData.cs" />
     <Compile Include="BCITModels\YearTerm.cs" />
