@@ -7,6 +7,10 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using OptionsWebsite.Models.BCITModels;
+using System.Web.Security;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using OptionsWebsite.Models;
 
 namespace OptionsWebsite.Controllers
 {
@@ -19,6 +23,11 @@ namespace OptionsWebsite.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
+            //gets the all roles of a user
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>((new ApplicationDbContext())));
+            IList<string> roles = userManager.GetRoles(userManager.FindByName(User.Identity.Name).Id);
+
+
             var choices = db.Choices.Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).Include(c => c.YearTerm);
             return View(choices.ToList());
         }
