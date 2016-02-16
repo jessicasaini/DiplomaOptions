@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DiplomaDataModel.BCITModels.CustomValidation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -11,6 +12,7 @@ using System.Web.Mvc;
 
 namespace OptionsWebsite.Models.BCITModels
 {
+    [CheckOptions(ErrorMessage = "Options must be unique")]
     public class Choice
     {
         [Key]
