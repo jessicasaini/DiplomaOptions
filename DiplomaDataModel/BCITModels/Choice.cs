@@ -28,7 +28,7 @@ namespace OptionsWebsite.Models.BCITModels
         [Display(Name = "Student Number")]
         //[BindableAttribute(true)]
         //[ThemeableAttribute(false)]
-        [ReadOnly(true)]
+        //[ReadOnly(true)]
         [StringLength(9, ErrorMessage = "The {0} must be between {2} and {1} characters.", MinimumLength = 5)]
         public string StudentId { get; set; }
 
@@ -65,6 +65,7 @@ namespace OptionsWebsite.Models.BCITModels
         [ForeignKey("FourthChoiceOptionId")]
         public Option FourthOption { get; set; }
 
+        [HiddenInput(DisplayValue = false)]
         public DateTime SelectionDate { get; set; }
 
     }
