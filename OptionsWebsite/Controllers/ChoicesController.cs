@@ -18,6 +18,9 @@ namespace OptionsWebsite.Controllers
     {
         private BCITContext db = new BCITContext();
 
+        private UserManager<ApplicationUser> userManager;
+        IList<string> roles;
+
         //Returns weather or not a list of roles contains Admin
         public bool IsAdmin(IList<string> roles)
         {
@@ -31,6 +34,13 @@ namespace OptionsWebsite.Controllers
             return false;
         }
 
+
+        public ChoicesController()
+        {
+            userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>((new ApplicationDbContext())));
+            //roles = userManager.GetRoles(userManager.FindByName(User.Identity.Name).Id);
+        }
+
         // GET: Choices
         [Authorize(Roles = "Admin,Student")]
         public ActionResult Index()
@@ -39,8 +49,7 @@ namespace OptionsWebsite.Controllers
             System.Linq.IQueryable<OptionsWebsite.Models.BCITModels.Choice> choices;
 
             //gets the all roles of a user
-            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>((new ApplicationDbContext())));
-            IList<string> roles = userManager.GetRoles(userManager.FindByName(User.Identity.Name).Id);
+            roles = userManager.GetRoles(userManager.FindByName(User.Identity.Name).Id);
 
             isAdmin = IsAdmin(roles);
 
@@ -75,9 +84,24 @@ namespace OptionsWebsite.Controllers
 
         // GET: Choices/Create
         [Authorize(Roles = "Student, Admin")]
-       // [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
+            bool isAdmin = false;
+
+            //gets the all roles of a user
+            roles = userManager.GetRoles(userManager.FindByName(User.Identity.Name).Id);
+
+            isAdmin = IsAdmin(roles);
+
+            if (isAdmin)
+            {
+                ViewBag.Admin = true;
+            }
+            else
+            {
+                ViewBag.Admin = false;
+            }
+
             ViewBag.StudentId = User.Identity.Name; //User's student number
 
             ViewBag.FirstChoiceOptionId = new SelectList(db.Options.Where(o => o.IsActive == true), "OptionId", "Title");
@@ -93,16 +117,37 @@ namespace OptionsWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin")]
         [Authorize(Roles = "Student, Admin")]
         public ActionResult Create([Bind(Include = "ChoiceId,YearTermId,StudentId,StudentFirstName,StudentLastName,FirstChoiceOptionId,SecondChoiceOptionId,ThirdChoiceOptionId,FourthChoiceOptionId,SelectionDate")] Choice choice)
         {
+            bool isAdmin = false;
+
+            //gets the all roles of a user
+            roles = userManager.GetRoles(userManager.FindByName(User.Identity.Name).Id);
+
+            isAdmin = IsAdmin(roles);
+
             if (ModelState.IsValid)
             {
+                if (!isAdmin)   //Not admin, make sure user saves their student #
+                {
+                    choice.StudentId = User.Identity.Name;
+                }
+                choice.SelectionDate = DateTime.Now;
                 db.Choices.Add(choice);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            if (isAdmin)
+            {
+                ViewBag.Admin = true;
+            }
+            else
+            {
+                ViewBag.Admin = false;
+            }
+            ViewBag.StudentId = User.Identity.Name; //User's student number
 
             ViewBag.FirstChoiceOptionId = new SelectList(db.Options.Where(o => o.IsActive == true), "OptionId", "Title", choice.FirstChoiceOptionId);
             ViewBag.FourthChoiceOptionId = new SelectList(db.Options.Where(o => o.IsActive == true), "OptionId", "Title", choice.FourthChoiceOptionId);
