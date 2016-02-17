@@ -78,6 +78,8 @@ namespace OptionsWebsite.Controllers
        // [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
+            ViewBag.StudentId = User.Identity.Name; //User's student number
+
             ViewBag.FirstChoiceOptionId = new SelectList(db.Options.Where(o => o.IsActive == true), "OptionId", "Title");
             ViewBag.FourthChoiceOptionId = new SelectList(db.Options.Where(o => o.IsActive == true), "OptionId", "Title");
             ViewBag.SecondChoiceOptionId = new SelectList(db.Options.Where(o => o.IsActive == true), "OptionId", "Title");

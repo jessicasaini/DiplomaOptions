@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 
 
 
@@ -25,6 +26,9 @@ namespace OptionsWebsite.Models.BCITModels
         public YearTerm YearTerm { get; set; }
 
         [Display(Name = "Student Number")]
+        //[BindableAttribute(true)]
+        //[ThemeableAttribute(false)]
+        [ReadOnly(true)]
         [StringLength(9, ErrorMessage = "The {0} must be between {2} and {1} characters.", MinimumLength = 5)]
         public string StudentId { get; set; }
 
