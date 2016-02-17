@@ -18,17 +18,42 @@ namespace OptionsWebsite.Controllers
     {
         private BCITContext db = new BCITContext();
 
+        //Returns weather or not a list of roles contains Admin
+        public bool IsAdmin(IList<string> roles)
+        {
+            foreach(string role in roles)
+            {
+                if(role == "Admin")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         // GET: Choices
-        //[Authorize(Roles = "Admin")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Student")]
         public ActionResult Index()
         {
+            bool isAdmin = false;
+            System.Linq.IQueryable<OptionsWebsite.Models.BCITModels.Choice> choices;
+
             //gets the all roles of a user
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>((new ApplicationDbContext())));
             IList<string> roles = userManager.GetRoles(userManager.FindByName(User.Identity.Name).Id);
 
+            isAdmin = IsAdmin(roles);
 
-            var choices = db.Choices.Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).Include(c => c.YearTerm);
+            //Admin
+            if (isAdmin)
+            {
+                choices = db.Choices.Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).Include(c => c.YearTerm);
+            }
+            else//student
+            {
+                choices = db.Choices.Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).Include(c => c.YearTerm).Where(c => c.StudentId == User.Identity.Name);
+            }
+            
             return View(choices.ToList());
         }
 
@@ -53,6 +78,8 @@ namespace OptionsWebsite.Controllers
        // [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
+            ViewBag.StudentId = User.Identity.Name; //User's student number
+
             ViewBag.FirstChoiceOptionId = new SelectList(db.Options.Where(o => o.IsActive == true), "OptionId", "Title");
             ViewBag.FourthChoiceOptionId = new SelectList(db.Options.Where(o => o.IsActive == true), "OptionId", "Title");
             ViewBag.SecondChoiceOptionId = new SelectList(db.Options.Where(o => o.IsActive == true), "OptionId", "Title");
