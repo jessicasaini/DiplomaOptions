@@ -188,6 +188,7 @@ namespace OptionsWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
+                choice.SelectionDate = DateTime.Now;
                 db.Entry(choice).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
