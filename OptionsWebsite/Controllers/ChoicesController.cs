@@ -66,21 +66,21 @@ namespace OptionsWebsite.Controllers
             return View(choices.ToList());
         }
 
-        // GET: Choices/Details/5
-        [Authorize(Roles = "Admin")]
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Choice choice = db.Choices.Find(id);
-            if (choice == null)
-            {
-                return HttpNotFound();
-            }
-            return View(choice);
-        }
+        //// GET: Choices/Details/5
+        //[Authorize(Roles = "Admin")]
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Choice choice = db.Choices.Find(id);
+        //    if (choice == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(choice);
+        //}
 
         // GET: Choices/Create
         [Authorize(Roles = "Student, Admin")]
@@ -188,6 +188,7 @@ namespace OptionsWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
+                choice.SelectionDate = DateTime.Now;
                 db.Entry(choice).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
