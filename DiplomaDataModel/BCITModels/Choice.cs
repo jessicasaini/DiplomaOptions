@@ -1,4 +1,5 @@
 ﻿using DiplomaDataModel.BCITModels.CustomValidation;
+using MVC01.Models.CustomValidation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,9 +31,10 @@ namespace OptionsWebsite.Models.BCITModels
         //[BindableAttribute(true)]
         //[ThemeableAttribute(false)]
         //[ReadOnly(true)]
-        [StringLength(9, ErrorMessage = "The {0} must be between {2} and {1} characters.", MinimumLength = 5)]
+        // [StringLength(9, ErrorMessage = "The {0} must be between {2} and {1} characters.", MinimumLength = 9)]
+        [StudentIdValidator(9)]
         public string StudentId { get; set; }
-
+        
         [Display(Name = "First Name")]
         [StringLength(40, ErrorMessage = "The {0} must be between {2} and {1} characters.", MinimumLength = 1)]
         public string StudentFirstName { get; set; }
