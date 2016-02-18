@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MVC01.Models.CustomValidation;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace OptionsWebsite.Models
@@ -69,6 +70,8 @@ namespace OptionsWebsite.Models
     public class RegisterViewModel
     {
         [Required]
+        //[StringLength(9, ErrorMessage = "The {0} must be between {2} and {1} characters.", MinimumLength = 1)]
+        [StudentIdValidator(9)]
         [Display(Name = "Username")]
         public string UserName { get; set; }
 
