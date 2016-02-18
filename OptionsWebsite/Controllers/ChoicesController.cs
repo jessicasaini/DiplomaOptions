@@ -18,6 +18,14 @@ namespace OptionsWebsite.Controllers
     {
         private BCITContext db = new BCITContext();
 
+        Dictionary<int, string> Terms = new Dictionary<int, string>()
+        {
+            { 10, "Winter" },
+            { 20, "Spring/Summer" },
+            { 30, "Fall" }
+        };
+
+
         private UserManager<ApplicationUser> userManager;
         IList<string> roles;
 
@@ -38,6 +46,7 @@ namespace OptionsWebsite.Controllers
         public ChoicesController()
         {
             userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>((new ApplicationDbContext())));
+
             //roles = userManager.GetRoles(userManager.FindByName(User.Identity.Name).Id);
         }
 
@@ -62,6 +71,8 @@ namespace OptionsWebsite.Controllers
             {
                 choices = db.Choices.Include(c => c.FirstOption).Include(c => c.FourthOption).Include(c => c.SecondOption).Include(c => c.ThirdOption).Include(c => c.YearTerm).Where(c => c.StudentId == User.Identity.Name);
             }
+
+
             
             return View(choices.ToList());
         }
@@ -108,7 +119,11 @@ namespace OptionsWebsite.Controllers
             ViewBag.FourthChoiceOptionId = new SelectList(db.Options.Where(o => o.IsActive == true), "OptionId", "Title");
             ViewBag.SecondChoiceOptionId = new SelectList(db.Options.Where(o => o.IsActive == true), "OptionId", "Title");
             ViewBag.ThirdChoiceOptionId = new SelectList(db.Options.Where(o => o.IsActive == true), "OptionId", "Title");
-            ViewBag.YearTermId = new SelectList(db.YearTerms, "YearTermId", "YearTermId");
+            ViewBag.YearTermId = new SelectList(db.YearTerms.Where(y => y.IsDefault == true), "YearTermId", "YearTermId");
+
+            var term = db.YearTerms.Where(y => y.IsDefault == true).ToArray();
+            ViewBag.Term = $"{Terms[term[0].Term]} {term[0].Year}";
+
             return View();
         }
 
@@ -133,7 +148,11 @@ namespace OptionsWebsite.Controllers
                 {
                     choice.StudentId = User.Identity.Name;
                 }
+
+                YearTerm[] yearTerms = db.YearTerms.Where(y => y.IsDefault == true).ToArray();
+                choice.YearTermId = yearTerms[0].YearTermId;
                 choice.SelectionDate = DateTime.Now;
+
                 db.Choices.Add(choice);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -154,6 +173,10 @@ namespace OptionsWebsite.Controllers
             ViewBag.SecondChoiceOptionId = new SelectList(db.Options.Where(o => o.IsActive == true), "OptionId", "Title", choice.SecondChoiceOptionId);
             ViewBag.ThirdChoiceOptionId = new SelectList(db.Options.Where(o => o.IsActive == true), "OptionId", "Title", choice.ThirdChoiceOptionId);
             ViewBag.YearTermId = new SelectList(db.YearTerms, "YearTermId", "YearTermId", choice.YearTermId);
+
+            var term = db.YearTerms.Where(y => y.IsDefault == true).ToArray();
+            ViewBag.Term = $"{Terms[term[0].Term]} {term[0].Year}";
+
             return View(choice);
         }
 
