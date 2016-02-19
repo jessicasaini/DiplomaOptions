@@ -54,6 +54,15 @@ namespace OptionsWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (yearTerm.IsDefault == true) // set all other year term isDefault to false if the new one is true
+                {
+                    var yts = db.YearTerms.Where(x => x.YearTermId != yearTerm.YearTermId);
+                    foreach (var yt in yts)
+                    {
+                        yt.IsDefault = false;
+                        db.Entry(yt).State = EntityState.Modified;
+                    }
+                }
                 db.YearTerms.Add(yearTerm);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -88,6 +97,18 @@ namespace OptionsWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                if (yearTerm.IsDefault == true)
+                {
+                    var yts = db.YearTerms.Where(x => x.YearTermId != yearTerm.YearTermId); // set all other year term isdefaults to false if the edited one is being set as true
+                    foreach (var yt in yts)
+                    {
+                            yt.IsDefault = false;
+                            db.Entry(yt).State = EntityState.Modified;
+                    }
+                }
+
+
                 db.Entry(yearTerm).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
