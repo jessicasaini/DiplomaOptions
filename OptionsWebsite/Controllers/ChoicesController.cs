@@ -141,7 +141,7 @@ namespace OptionsWebsite.Controllers
             roles = userManager.GetRoles(userManager.FindByName(User.Identity.Name).Id);
 
             isAdmin = IsAdmin(roles);
-
+            ViewBag.Error = "sfdaf";
             if (ModelState.IsValid)
             {
                 if (!isAdmin)   //Not admin, make sure user saves their student #
@@ -162,7 +162,8 @@ namespace OptionsWebsite.Controllers
                     return RedirectToAction("Index");
                 }
                 else {
-                       //redirect here 
+                    ViewBag.Error = "This student already has an entry for this term.";
+
                 }
             }
 
