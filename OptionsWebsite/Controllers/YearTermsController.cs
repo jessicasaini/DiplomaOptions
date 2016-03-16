@@ -41,6 +41,10 @@ namespace OptionsWebsite.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
+
+            int [] array = new int[3]  { 10, 20, 30 };
+            ViewBag.Term = new SelectList(array);
+
             return View();
         }
 
@@ -68,6 +72,9 @@ namespace OptionsWebsite.Controllers
                 return RedirectToAction("Index");
             }
 
+
+            int[] array = new int[3] { 10, 20, 30 };
+            ViewBag.Term = new SelectList(array);
             return View(yearTerm);
         }
 
@@ -84,6 +91,8 @@ namespace OptionsWebsite.Controllers
             {
                 return HttpNotFound();
             }
+            int[] array = new int[3] { 10, 20, 30 };
+            ViewBag.Term = new SelectList(array);
             return View(yearTerm);
         }
 
@@ -113,6 +122,8 @@ namespace OptionsWebsite.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            int[] array = new int[3] { 10, 20, 30 };
+            ViewBag.Term = new SelectList(array);
             return View(yearTerm);
         }
 
