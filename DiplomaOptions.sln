@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiplomaDataModel", "Diploma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OptionsWebsite", "OptionsWebsite\OptionsWebsite.csproj", "{322D83AC-B5EA-4396-8DC4-00839C9096AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OptionsWebAPI", "OptionsWebAPI\OptionsWebAPI.csproj", "{E8987E19-B535-4434-9D7A-E31908B5474B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{322D83AC-B5EA-4396-8DC4-00839C9096AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{322D83AC-B5EA-4396-8DC4-00839C9096AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{322D83AC-B5EA-4396-8DC4-00839C9096AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8987E19-B535-4434-9D7A-E31908B5474B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8987E19-B535-4434-9D7A-E31908B5474B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8987E19-B535-4434-9D7A-E31908B5474B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8987E19-B535-4434-9D7A-E31908B5474B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
