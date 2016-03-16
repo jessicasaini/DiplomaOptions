@@ -13,7 +13,7 @@
 
     <div class="form-horizontal">
         <h4>@ViewBag.Term </h4>
-        @ViewBag.Error
+        @Html.Raw(@ViewBag.Error)
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @*<div class="form-group">
