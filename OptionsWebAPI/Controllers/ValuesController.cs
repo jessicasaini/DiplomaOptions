@@ -7,13 +7,19 @@ using System.Web.Http;
 
 namespace OptionsWebAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class ValuesController : ApiController
     {
-        // GET api/values
-        public IEnumerable<string> Get()
+        //// GET api/values
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
+
+        public string Get()
         {
-            return new string[] { "value1", "value2" };
+            var userName = this.RequestContext.Principal.Identity.Name;
+            return String.Format("Hello, {0}.", userName);
         }
 
         // GET api/values/5
