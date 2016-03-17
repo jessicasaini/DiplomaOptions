@@ -29,5 +29,7 @@ namespace OptionsWebsite.Models
         {
             return new ApplicationDbContext();
         }
+
+
     }
 }

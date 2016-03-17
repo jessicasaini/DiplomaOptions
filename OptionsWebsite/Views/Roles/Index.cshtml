@@ -1,0 +1,43 @@
+﻿
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+           NAME
+        </th>
+
+
+    </tr>
+
+@foreach (var r in ViewBag.Roles) {
+    <tr>
+        <td>
+            @r.Id
+        </td>
+        <td>
+            @r.Name
+        </td>
+
+
+  
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { id=r.Id })
+        </td>
+
+
+    </tr>
+}
+
+</table>
