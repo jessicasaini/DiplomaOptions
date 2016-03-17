@@ -18,7 +18,7 @@ namespace OptionsWebAPI
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
-            var cors = new EnableCorsAttribute("*", "*", "GET");
+            var cors = new EnableCorsAttribute("*", "*","GET,POST");
             config.EnableCors(cors);
 
 

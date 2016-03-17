@@ -65,12 +65,24 @@
 
         $.ajax({
             type: 'POST',
-            url: '/Token',
+            url: 'http://localhost:56503/Token',
             data: loginData
         }).done(function (data) {
             self.user(data.userName);
             // Cache the access token in session storage.
             sessionStorage.setItem(tokenKey, data.access_token);
+            console.log("success")
+            console.log(data)
+        }).fail(showError);
+    }
+
+    self.getStuff = function () {
+        self.result('');
+
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:56503/api/Choices',
+        }).done(function (data) {
             console.log("success")
             console.log(data)
         }).fail(showError);
@@ -82,5 +94,21 @@
     }
 }
 
-var app = new ViewModel();
-ko.applyBindings(app);
+var x = new ViewModel();
+ko.applyBindings(x);
+
+
+
+//var onSuccess = function (response) {
+//    console.log(response)
+//};
+
+//var onFailure = function (failed) {
+//    console.log(failed)
+//}
+
+//var app = angular.module('myApp', []);
+//app.controller('myCtrl', function($scope, $http) {
+//    $http.get("http://localhost:56503/api/Choices")
+//    .then(onSuccess,onFailure);
+//});
