@@ -3,8 +3,31 @@
 <head>
     <title></title>
 	<meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
 </head>
 <body>
-    hello world
+    <div ng-app="myApp" ng-controller="myCtrl">
+
+
+    </div>
 </body>
+
+<script>
+    var onSuccess = function (response) {
+        console.log(response)
+    };
+
+    var onFailure = function (failed) {
+        console.log(failed)
+    }
+
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope, $http) {
+        $http.get("http://localhost:56503/api/Choices")
+        .then(onSuccess,onFailure);
+    });
+
+
+
+</script>
 </html>
