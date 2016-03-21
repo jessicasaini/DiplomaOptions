@@ -328,9 +328,13 @@ namespace OptionsWebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            //var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser { UserName = model.Username, Email = model.Email };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+
+            //give new user a student role
+            UserManager.AddToRole(UserManager.FindByEmail(user.Email).Id, "Student");
 
             if (!result.Succeeded)
             {
