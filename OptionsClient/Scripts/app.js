@@ -6,6 +6,7 @@
     self.result = ko.observable();
     self.user = ko.observable();
 
+    self.registerUsername = ko.observable();
     self.registerEmail = ko.observable();
     self.registerPassword = ko.observable();
     self.registerPassword2 = ko.observable();
@@ -39,6 +40,7 @@
         self.result('');
 
         var data = {
+            Username: self.registerUsername(),
             Email: self.registerEmail(),
             Password: self.registerPassword(),
             ConfirmPassword: self.registerPassword2()
