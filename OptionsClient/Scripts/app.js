@@ -11,7 +11,7 @@
     self.registerPassword = ko.observable();
     self.registerPassword2 = ko.observable();
 
-    self.loginEmail = ko.observable();
+    self.loginUsername = ko.observable();
     self.loginPassword = ko.observable();
 
     function showError(jqXHR) {
@@ -48,7 +48,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '/api/Account/Register',
+            url: 'http://localhost:56503/api/Account/Register',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function (data) {
@@ -61,7 +61,7 @@
 
         var loginData = {
             grant_type: 'password',
-            username: self.loginEmail(),
+            username: self.loginUsername(),
             password: self.loginPassword()
         };
 
