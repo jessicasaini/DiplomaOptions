@@ -1,0 +1,29 @@
+﻿
+
+@{
+    ViewBag.Title = "Users Index";
+}
+
+<h2>Users Index</h2>
+<table class="table">
+    <tr>
+        <th>
+            ID
+        </th>
+    </tr>
+  
+    @foreach (var u in ViewBag.users)
+    {
+        <tr>
+            <td>
+                @u.UserName
+            </td>
+            <td>
+                @Html.ActionLink("User Roles", "UserRoles", new {Id = u.Id, UserName = u.UserName })
+            </td>
+
+
+        </tr>
+    }
+
+</table>

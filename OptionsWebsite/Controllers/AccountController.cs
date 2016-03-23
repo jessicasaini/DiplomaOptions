@@ -162,6 +162,7 @@ namespace OptionsWebsite.Controllers
                 if (result.Succeeded)
                 {
                     UserManager.AddToRole(UserManager.FindByEmail(user.Email).Id, "Student");
+                    
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     // add role to new user 
                     

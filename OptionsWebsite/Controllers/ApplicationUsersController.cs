@@ -15,12 +15,14 @@ namespace OptionsWebsite.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: ApplicationUsers
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View(db.Users.ToList());
         }
 
         // GET: ApplicationUsers/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -35,8 +37,9 @@ namespace OptionsWebsite.Controllers
             return View(applicationUser);
         }
 
-     
+
         // GET: ApplicationUsers/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -56,6 +59,7 @@ namespace OptionsWebsite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
@@ -67,8 +71,8 @@ namespace OptionsWebsite.Controllers
             return View(applicationUser);
         }
 
-       
 
+        [Authorize(Roles = "Admin")]
         protected override void Dispose(bool disposing)
         {
             if (disposing)

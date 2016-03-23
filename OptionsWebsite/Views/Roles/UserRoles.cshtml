@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Users Roles";
+}
+<h2>Roles Assigned to: @ViewBag.UserName </h2>
+<table class="table">
+    @ViewBag.Message
+    @foreach (var p in ViewBag.UserRoles)
+    {
+        <tr>
+            <td>
+               @p.Name
+            </td>
+            <td>
+               @Html.ActionLink("Delete", "DeleteUserRole", new { UserId = ViewBag.UserId, Name = p.Name })
+            </td>
+
+
+        </tr>
+    }
+</table>
+
+
+<h2>Roles not assigned to: @ViewBag.UserName</h2>
+<table class="table">
+
+    @foreach (var p in ViewBag.AllRoles)
+    {
+        <tr>
+            <td>
+                @p
+            </td>
+            <td>
+                @Html.ActionLink("Add", "AddUserRole", new { UserId = ViewBag.UserId, Name = p })
+            </td>
+        </tr>
+    }
+</table>
