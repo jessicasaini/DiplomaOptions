@@ -71,6 +71,7 @@ namespace OptionsWebAPI.Controllers
         }
 
         // POST: api/Choices
+        [Authorize]
         [ResponseType(typeof(Choice))]
         public IHttpActionResult PostChoice(Choice choice)
         {
@@ -78,6 +79,8 @@ namespace OptionsWebAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+            choice.SelectionDate = DateTime.Now;    //add date
 
             db.Choices.Add(choice);
             db.SaveChanges();

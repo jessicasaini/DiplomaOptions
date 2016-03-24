@@ -1,116 +1,145 @@
-﻿function ViewModel() {
-    var self = this;
+﻿var app = angular.module('myApp', []);
+
+
+app.controller('myCtrl', function ($scope, $http, $window) {
 
     var tokenKey = 'accessToken';
+    var userName = 'userName';
 
-    self.result = ko.observable();
-    self.user = ko.observable();
-
-    self.registerUsername = ko.observable();
-    self.registerEmail = ko.observable();
-    self.registerPassword = ko.observable();
-    self.registerPassword2 = ko.observable();
-
-    self.loginUsername = ko.observable();
-    self.loginPassword = ko.observable();
-
-    function showError(jqXHR) {
-        self.result(jqXHR.status + ': ' + jqXHR.statusText);
+    if (sessionStorage.getItem(tokenKey) != null) {
+        $scope.token = sessionStorage.getItem(tokenKey);
+    }
+    if (sessionStorage.getItem(userName) != null) {
+        $scope.username = sessionStorage.getItem(userName);
     }
 
-    self.callApi = function () {
-        self.result('');
+    $scope.login = function () {
+        console.log("logging in");
+        var data = $.param({
+            username: $scope.username,
+            password: $scope.password,
+            grant_type: 'password'
+        });
 
-        var token = sessionStorage.getItem(tokenKey);
-        var headers = {};
-        if (token) {
-            headers.Authorization = 'Bearer ' + token;
+        var onSuccess = function (response) {
+            //TODO fill this out
+            console.log("success");
+            console.log(response)
+
+            // Cache the access token in session storage.
+            sessionStorage.setItem(userName, response.data.userName);
+            sessionStorage.setItem(tokenKey, response.data.access_token);
+            $window.location.reload();
         }
 
-        $.ajax({
-            type: 'GET',
-            url: '/api/values',
-            headers: headers
-        }).done(function (data) {
-            self.result(data);
-        }).fail(showError);
+        var onFailure = function (response) {
+            //TODO fill this out
+            console.log("failed");
+            console.log(response);
+        }
+
+        $http.post("http://localhost:56503/Token", data).then(onSuccess, onFailure);
+    };
+
+    $scope.register = function () {
+        var data = $.param({
+            Username: $scope.username,
+            Email: $scope.email,
+            Password: $scope.password,
+            ConfirmPassword: $scope.password2
+        });
+
+        var postObject = new Object();
+        postObject.Username = $scope.username;
+        postObject.Email = $scope.email;
+        postObject.Password = $scope.password;
+        postObject.ConfirmPassword = $scope.password2
+
+        var onSuccess = function (response) {
+            //TODO fill this out
+            console.log("success");
+            console.log(response)
+
+            $scope.login();
+        }
+
+        var onFailure = function (response) {
+            //TODO fill this out
+            console.log("failed");
+            console.log(response);
+        }
+
+        $http.post("http://localhost:56503/api/Account/Register", JSON.stringify(postObject)).then(onSuccess, onFailure);
+    };
+
+    $scope.select = function () {
+        console.log($scope.user);
+        console.log($scope.firstChoice);
+        console.log($scope.secondChoice);
+        console.log($scope.thirdChoice);
+        console.log($scope.fourthChoice.OptionId);
+
+        var token = sessionStorage.getItem(tokenKey)
+        var headers = {}
+        if(token) {
+            headers.Authorization = 'Bearer ' + token;
+            $http.defaults.headers.common.Authorization = 'bearer ' + token;
+        }
+
+        var postObject = new Object();
+        postObject.YearTermId = 4;
+        postObject.StudentId = $scope.username
+        postObject.StudentFirstName = $scope.firstName;
+        postObject.StudentLastName = $scope.lastName;
+        postObject.ConfirmPassword = $scope.password2
+        postObject.FirstChoiceOptionId = $scope.firstChoice.OptionId;
+        postObject.SecondChoiceOptionId = $scope.secondChoice.OptionId;
+        postObject.ThirdChoiceOptionID = $scope.thirdChoice.OptionId;
+        postObject.FourthChoiceOptionId = $scope.fourthChoice.OptionId;
+
+        var onSuccess = function (response) {
+            //TODO fill this out
+            console.log("success");
+            console.log(response)
+        }
+
+        var onFailure = function (response) {
+            //TODO fill this out
+            console.log("failed");
+            console.log(response);
+        }
+
+        $http.post("http://localhost:56503/api/Choices", JSON.stringify(postObject))
+            .then(onSuccess, onFailure);
+
     }
 
-    self.register = function () {
-        self.result('');
-
-        var data = {
-            Username: self.registerUsername(),
-            Email: self.registerEmail(),
-            Password: self.registerPassword(),
-            ConfirmPassword: self.registerPassword2()
-        };
-
-        $.ajax({
-            type: 'POST',
-            url: 'http://localhost:56503/api/Account/Register',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(data)
-        }).done(function (data) {
-            self.result("Done!");
-        }).fail(showError);
+    $scope.logout = function () {
+        sessionStorage.removeItem(tokenKey);
+        sessionStorage.removeItem(userName);
+        $window.location.reload();
     }
 
-    self.login = function () {
-        self.result('');
 
-        var loginData = {
-            grant_type: 'password',
-            username: self.loginUsername(),
-            password: self.loginPassword()
-        };
+    $scope.options = [];
+    //populate the options dropdown
+    $http.get("http://localhost:56503/api/Options")
+    .then(function (response) {
+        console.log(response.data);
 
-        $.ajax({
-            type: 'POST',
-            url: 'http://localhost:56503/Token',
-            data: loginData
-        }).done(function (data) {
-            self.user(data.userName);
-            // Cache the access token in session storage.
-            sessionStorage.setItem(tokenKey, data.access_token);
-            console.log("success")
-            console.log(data)
-        }).fail(showError);
-    }
+        var result = [];
+        //get options that are available
+        for (var i = 0; i < response.data.length; i++) {
+            if (response.data[i].IsActive == true) {
+                result.push(response.data[i])
+            }
+        }
 
-    self.getStuff = function () {
-        self.result('');
-
-        $.ajax({
-            type: 'GET',
-            url: 'http://localhost:56503/api/Choices',
-        }).done(function (data) {
-            console.log("success")
-            console.log(data)
-        }).fail(showError);
-    }
-
-    self.logout = function () {
-        self.user('');
-        sessionStorage.removeItem(tokenKey)
-    }
-}
-
-var x = new ViewModel();
-ko.applyBindings(x);
-
-
-
-//var onSuccess = function (response) {
-//    console.log(response)
-//};
-
-//var onFailure = function (failed) {
-//    console.log(failed)
-//}
-
-//var app = angular.module('myApp', []);
-//app.controller('myCtrl', function($scope, $http) {
-//    $http.get("http://localhost:56503/api/Choices")
-//    .then(onSuccess,onFailure);
-//});
+        $scope.options = result;
+        $scope.firstChoice = $scope.options[0];
+        $scope.secondChoice = $scope.options[0];
+        $scope.thirdChoice = $scope.options[0];
+        $scope.fourthChoice = $scope.options[0];
+    });
+    
+});

@@ -60,7 +60,7 @@ namespace OptionsWebAPI.Controllers
 
             return new UserInfoViewModel
             {
-                Email = User.Identity.GetUserName(),
+                Username = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
             };
@@ -323,7 +323,7 @@ namespace OptionsWebAPI.Controllers
         [Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
-            if (!ModelState.IsValid)
+             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
