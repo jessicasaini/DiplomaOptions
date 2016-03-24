@@ -20,7 +20,7 @@ namespace OptionsWebAPI
         {
             //http://stackoverflow.com/questions/26725866/cors-on-owin-and-accessing-token-causes-access-control-allow-origin-error
             // Allows cors for the /token endpoint this is different from webapi endpoints. 
-            context.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });  // <-- This is the line you need
+            //context.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });  // <-- This is the line you need
 
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
             // Configure validation logic for usernames
