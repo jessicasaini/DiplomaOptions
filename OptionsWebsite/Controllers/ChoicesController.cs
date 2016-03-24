@@ -57,9 +57,25 @@ namespace OptionsWebsite.Controllers
             bool isAdmin = false;
             System.Linq.IQueryable<OptionsWebsite.Models.BCITModels.Choice> choices;
 
+
+
+            var yearTerms = db.YearTerms.Where(y => y.IsDefault == false).ToList();
+            var defaultyearTerms = db.YearTerms.Where(y => y.IsDefault == true).SingleOrDefault();
+            var s = new List<string>();
+            s.Add(defaultyearTerms.Year +  " "  + Terms[defaultyearTerms.Term]);
+            foreach (var v in yearTerms) {
+                s.Add(v.Year + " " + Terms[v.Term]);
+            }
+            ViewBag.YearTerms = new SelectList(s);
+
+            var r = new List<string>();
+            r.Add("Details Report");
+            r.Add("Chart");
+            ViewBag.ReportTypes = new SelectList(r);
+
             //gets the all roles of a user
             roles = userManager.GetRoles(userManager.FindByName(User.Identity.Name).Id);
-
+            
             isAdmin = IsAdmin(roles);
 
             //Admin

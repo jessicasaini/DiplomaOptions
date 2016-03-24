@@ -5,7 +5,10 @@
 }
 
 <h2>Choices</h2>
-
+<label for="YearTerms">Year Term</label>
+@Html.DropDownList("YearTerms", null, htmlAttributes: new { @class = "form-control" })
+<label for="ReportType">Report Types</label>
+@Html.DropDownList("ReportTypes", null, htmlAttributes: new { @class = "form-control" })
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
