@@ -9,6 +9,92 @@
 @Html.DropDownList("YearTerms", null, htmlAttributes: new { @class = "form-control" })
 <label for="ReportType">Report Types</label>
 @Html.DropDownList("ReportTypes", null, htmlAttributes: new { @class = "form-control" })
+<button id="report" class="btn btn-secondary">Go</button>
+
+<div id="reportdiv"></div>
+<script>
+ $(document).ready(function () {
+        $("#report").click(function () {
+            $.ajax({
+                url: 'http://localhost:56503/api/choices',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data, textStatus, xhr) {
+                    console.log(data);
+                    getYearTerms(data);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error in Operation');
+                }
+            });
+        });
+ });
+
+ function FilterData(data, yearTermData) {
+     var yt = document.getElementById('YearTerms').value;
+     var x = yt.split(' ')
+     var term = x[1];
+     console.log("term" + term);
+     var year = yt.match(/\d+/);
+     var termId = 10;
+     switch (term) {
+         case "Winter":
+             termId = 10;
+             break;
+         case "Spring/Summer":
+             termId = 20;
+             break;
+         case "Fall":
+             termId = 30;
+             break;
+         default:
+             termId = 10;
+     }
+     var yearTermId = 0;
+     $.each(yearTermData, function (i, val) {
+         if (val.Year == year && val.Term == termId) {
+             yearTermId = val.YearTermId;
+             return false;
+         }
+
+     });
+     var filtered = new Array();
+     $.each(data, function (i, val) {
+         if (val.YearTermId == yearTermId) {
+             filtered.push(val);
+         }
+
+     });
+     console.log(filtered);
+ }
+    function GenerateReport(data, target){
+        if (data != null) {
+            var strResult = "";
+            $(target).html(strResult);
+        }
+        else {
+            $(target).html("No Results To Display");
+        }
+    }
+
+
+    function getYearTerms(choicedata) {
+
+
+        $.ajax({
+            url: 'http://localhost:56503/api/yearterms',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data, textStatus, xhr) {
+                console.log(data);
+                FilterData(choicedata, data);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log('Error in Operation');
+            }
+        });
+    }
+</script>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
