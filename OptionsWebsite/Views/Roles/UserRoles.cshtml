@@ -4,7 +4,8 @@
 }
 <h2>Roles Assigned to: @ViewBag.UserName </h2>
 <table class="table">
-    @ViewBag.Message
+    <div style="color:red">@ViewBag.Message</div>
+    
     @foreach (var p in ViewBag.UserRoles)
     {
         <tr>

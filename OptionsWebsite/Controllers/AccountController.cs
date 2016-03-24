@@ -167,6 +167,7 @@ namespace OptionsWebsite.Controllers
 
                 if (result.Succeeded)
                 {
+                    UserManager.SetLockoutEnabled(UserManager.FindByEmail(user.Email).Id, false);
                     UserManager.AddToRole(UserManager.FindByEmail(user.Email).Id, "Student");
                     
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
