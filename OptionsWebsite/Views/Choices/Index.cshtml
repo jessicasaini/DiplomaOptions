@@ -13,7 +13,7 @@
 
 <div id="reportdiv"></div>
 <script>
- $(document).ready(function () {
+    $(document).ready(function () {
         $("#report").click(function () {
             $.ajax({
                 url: 'http://localhost:56503/api/choices',
@@ -28,48 +28,76 @@
                 }
             });
         });
- });
+    });
 
- function FilterData(data, yearTermData) {
-     var yt = document.getElementById('YearTerms').value;
-     var x = yt.split(' ')
-     var term = x[1];
-     console.log("term" + term);
-     var year = yt.match(/\d+/);
-     var termId = 10;
-     switch (term) {
-         case "Winter":
-             termId = 10;
-             break;
-         case "Spring/Summer":
-             termId = 20;
-             break;
-         case "Fall":
-             termId = 30;
-             break;
-         default:
-             termId = 10;
-     }
-     var yearTermId = 0;
-     $.each(yearTermData, function (i, val) {
-         if (val.Year == year && val.Term == termId) {
-             yearTermId = val.YearTermId;
-             return false;
-         }
+    function FilterData(data, yearTermData) {
+        var yt = document.getElementById('YearTerms').value;
+        var x = yt.split(' ')
+        var term = x[1];
+        console.log("term" + term);
+        var year = yt.match(/\d+/);
+        var termId = 10;
+        switch (term) {
+            case "Winter":
+                termId = 10;
+                break;
+            case "Spring/Summer":
+                termId = 20;
+                break;
+            case "Fall":
+                termId = 30;
+                break;
+            default:
+                termId = 10;
+        }
+        var yearTermId = 0;
+        $.each(yearTermData, function (i, val) {
+            if (val.Year == year && val.Term == termId) {
+                yearTermId = val.YearTermId;
+                return false;
+            }
 
-     });
-     var filtered = new Array();
-     $.each(data, function (i, val) {
-         if (val.YearTermId == yearTermId) {
-             filtered.push(val);
-         }
+        });
+        var filtered = new Array();
+        $.each(data, function (i, val) {
+            if (val.YearTermId == yearTermId) {
+                filtered.push(val);
+            }
 
-     });
-     console.log(filtered);
- }
-    function GenerateReport(data, target){
+        });
+
+        console.log(filtered);
+
+        getOptions(filtered);
+
+    }
+
+    function GenerateReport(data, options, target) {
+        
+        var optionsArray = {};
+        $.each(options, function (i, value) {
+            optionsArray[value.OptionId] = value.Title;
+        });
+          
         if (data != null) {
-            var strResult = "";
+            var strResult = "<table class='table'><tr><th>Student Number</th><th>First Name</th><th>Last Name</th><th>Selection Date</th><th>First Choice</th><th>Second Choice</th><th>Third Choice</th><th>Fourth Choice</th></tr>";
+            
+            $.each(data, function (i, val) {
+                strResult += "<tr>" +
+                    "<td>" + val.StudentId + "</td>" +
+                    "<td>" + val.StudentFirstName + "</td>" +
+                    "<td>" + val.StudentLastName + "</td>" +
+                    "<td>" + val.SelectionDate + "</td>" +
+                    "<td>" + optionsArray[val.FirstChoiceOptionId] + "</td>" +
+                    "<td>" + optionsArray[val.SecondChoiceOptionId] + "</td>" +
+                    "<td>" + optionsArray[val.ThirdChoiceOptionId] + "</td>" +
+                    "<td>" + optionsArray[val.FourthChoiceOptionId] + "</td>" +
+                    "</tr>";
+
+            });
+
+
+            strResult+="</table>";
             $(target).html(strResult);
         }
         else {
@@ -78,9 +106,24 @@
     }
 
 
+    function getOptions(filtered) {
+        $.ajax({
+            url: 'http://localhost:56503/api/options',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data, textStatus, xhr) {
+                console.log(data);
+                GenerateReport(filtered, data, "#reportdiv");
+               
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log('Error in Operation');
+            }
+        });
+
+    }
+
     function getYearTerms(choicedata) {
-
-
         $.ajax({
             url: 'http://localhost:56503/api/yearterms',
             type: 'GET',
@@ -130,41 +173,42 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstOption.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SecondOption.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ThirdOption.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FourthOption.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.YearTerm.YearTermId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StudentId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StudentFirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StudentLastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SelectionDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ChoiceId }) |
-            @*@Html.ActionLink("Details", "Details", new { id=item.ChoiceId }) |*@
-            @Html.ActionLink("Delete", "Delete", new { id=item.ChoiceId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstOption.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SecondOption.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ThirdOption.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FourthOption.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YearTerm.YearTermId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SelectionDate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ChoiceId }) |
+                @*@Html.ActionLink("Details", "Details", new { id=item.ChoiceId }) |*@
+                @Html.ActionLink("Delete", "Delete", new { id = item.ChoiceId })
+            </td>
+        </tr>
+    }
 
 </table>
