@@ -210,6 +210,10 @@
     <Compile Include="Migrations\BCITMigrations\201602152116282_InitialCreate.Designer.cs">
       <DependentUpon>201602152116282_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\BCITMigrations\201603242201309_SecondCreate.cs" />
+    <Compile Include="Migrations\BCITMigrations\201603242201309_SecondCreate.Designer.cs">
+      <DependentUpon>201603242201309_SecondCreate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\BCITMigrations\Configuration.cs" />
     <Compile Include="Migrations\IdentityMigrations\201602152234215_InitialCreate.cs" />
     <Compile Include="Migrations\IdentityMigrations\201602152234215_InitialCreate.Designer.cs">
@@ -322,6 +326,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\BCITMigrations\201602152116282_InitialCreate.resx">
       <DependentUpon>201602152116282_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\BCITMigrations\201603242201309_SecondCreate.resx">
+      <DependentUpon>201603242201309_SecondCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\IdentityMigrations\201602152234215_InitialCreate.resx">
       <DependentUpon>201602152234215_InitialCreate.cs</DependentUpon>

@@ -37,7 +37,15 @@ namespace OptionsWebsite.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public ActionResult UserRoles(string Id, string UserName) {
+        public ActionResult UserRoles(string Id, string UserName, string Message) {
+            ViewBag.Message = "";
+            if (Message != null) {
+                ViewBag.Message = Message;
+            }
+           
+            if (Id == null || UserName == null) {
+                return RedirectToAction("UsersIndex", "Roles");
+            }
             ViewBag.UserName = UserName;
             ViewBag.UserId = Id;
 
@@ -62,8 +70,8 @@ namespace OptionsWebsite.Controllers
             
             ApplicationUser user = db.Users.Where(u => u.Id == UserId).SingleOrDefault();
             if ((user.UserName == "a00111111" || user.UserName == "A00111111") && Name == "Admin") {
-     
-                return RedirectToAction("UserRoles", "Roles", new { Id = UserId, UserName = user.UserName });
+                var msg = "You cannot remove this role from this user!";
+                return RedirectToAction("UserRoles", "Roles", new { Id = UserId, UserName = user.UserName, Message = msg });
             }
             ViewBag.Message = "";
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));

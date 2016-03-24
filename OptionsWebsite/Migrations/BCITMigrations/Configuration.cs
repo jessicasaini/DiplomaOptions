@@ -19,7 +19,7 @@ namespace OptionsWebsite.Migrations.BCITMigrations
             context.YearTerms.AddOrUpdate(
           y => new { y.Year, y.Term },
           DummyData.GetYearTerm().ToArray()
-      );
+         );
             context.SaveChanges();
 
             context.Options.AddOrUpdate(
@@ -28,6 +28,25 @@ namespace OptionsWebsite.Migrations.BCITMigrations
             );
             context.SaveChanges();
 
+
+            context.Choices.AddOrUpdate(z => new
+            {
+                z.StudentId,
+                z.StudentFirstName,
+                z.StudentLastName,
+                z.YearTermId,
+                z.SelectionDate,
+                z.FirstChoiceOptionId,
+                z.SecondChoiceOptionId,
+                z.ThirdChoiceOptionId,
+                z.FourthChoiceOptionId,
+                z.YearTerm,
+                z.FirstOption,
+                z.SecondOption,
+                z.ThirdOption,
+                z.FourthOption
+            }, DummyData.GetChoices().ToArray());
+            context.SaveChanges();
 
         }
     }
