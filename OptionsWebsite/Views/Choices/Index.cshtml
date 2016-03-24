@@ -12,21 +12,46 @@
 <button id="report" class="btn btn-secondary">Go</button>
 
 <div id="reportdiv"></div>
+
+
 <script>
+    var colors = ["#9C27B0", "#F44336", "#9E9E9E", "#E91E63", "#2196F3", "#4CAF50", "#FFEB3B"];
+
     $(document).ready(function () {
         $("#report").click(function () {
-            $.ajax({
-                url: 'http://localhost:56503/api/choices',
-                type: 'GET',
-                dataType: 'json',
-                success: function (data, textStatus, xhr) {
-                    console.log(data);
-                    getYearTerms(data);
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    console.log('Error in Operation');
-                }
-            });
+            //if ($("#ReportTypes").val()) {
+            //    console.err
+            //
+
+            if( $("#ReportTypes").val() == "Details Report" ){
+                $.ajax({
+                    url: 'http://localhost:56503/api/choices',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data, textStatus, xhr) {
+                        console.log(data);
+                        getYearTerms(data);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.log('Error in Operation');
+                    }
+                });
+            } else if ($("#ReportTypes").val() == "Chart") {
+                console.log("YOOO");
+                console.log($("#YearTerms").val())
+                $.ajax({
+                    url: 'http://localhost:56503/api/choices',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data, textStatus, xhr) {
+                        console.log(data);
+                        organize(data);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.log('Error in Operation');
+                    }
+                });
+            }
         });
     });
 
@@ -56,7 +81,6 @@
                 yearTermId = val.YearTermId;
                 return false;
             }
-
         });
         var filtered = new Array();
         $.each(data, function (i, val) {
@@ -105,7 +129,6 @@
         }
     }
 
-
     function getOptions(filtered) {
         $.ajax({
             url: 'http://localhost:56503/api/options',
@@ -137,6 +160,149 @@
             }
         });
     }
+
+    function getOptionsData(data) {
+        var optionsData = {};
+        for (var i = 0; i < data.length; i++) {
+            optionsData[data[i].OptionId] = data[i].Title;
+        }
+        return optionsData;
+
+    }
+
+    function organize(choicesData) {
+        $.ajax({
+            url: 'http://localhost:56503/api/options',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data, textStatus, xhr) {
+
+                var optionsData = getOptionsData(data);
+
+                var firstChoiceData = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0};
+                var secondChoiceData = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0 };
+                var thirdChoiceData = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0 };
+                var fourthChoiceData = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0 };
+
+                for (var i = 0; i < choicesData.length; i++) {
+
+                    if (choicesData[i].YearTermId == $("#YearTerms").val()) {
+                        //first choice
+                        if (isNaN(firstChoiceData[choicesData[i].FirstChoiceOptionId])) {
+                            firstChoiceData[choicesData[i].FirstChoiceOptionId] = 1;
+                        } else {
+                            firstChoiceData[choicesData[i].FirstChoiceOptionId]++
+                        }
+
+                        //second choice
+                        if (isNaN(secondChoiceData[choicesData[i].SecondChoiceOptionId])) {
+                            secondChoiceData[choicesData[i].SecondChoiceOptionId] = 1;
+                        } else {
+                            secondChoiceData[choicesData[i].SecondChoiceOptionId]++
+                        }
+
+                        //third choice
+                        if (isNaN(thirdChoiceData[choicesData[i].ThirdChoiceOptionId])) {
+                            thirdChoiceData[choicesData[i].ThirdChoiceOptionId] = 1;
+                        } else {
+                            thirdChoiceData[choicesData[i].ThirdChoiceOptionId]++
+                        }
+
+                        //fourth choice
+                        if (isNaN(fourthChoiceData[choicesData[i].FourthChoiceOptionId])) {
+                            fourthChoiceData[choicesData[i].FourthChoiceOptionId] = 1;
+                        } else {
+                            fourthChoiceData[choicesData[i].FourthChoiceOptionId]++
+                        }
+                    }
+                }
+
+                console.log(firstChoiceData);
+                console.log(secondChoiceData);
+                console.log(thirdChoiceData);
+                console.log(fourthChoiceData);
+
+                $(".choice-chart").remove();
+
+                $("#chartdiv").append("<h3 class='choice-chart'>Choice 1</h3>");
+                $("#chartdiv").append("<canvas id='choice-chart-1' class='choice-chart' width='400' height='400'></canvas>")
+                $("#chartdiv").append("<h3 class='choice-chart'>Choice 2</h3>");
+                $("#chartdiv").append("<canvas id='choice-chart-2' class='choice-chart' width='400' height='400'></canvas>")
+                $("#chartdiv").append("<h3 class='choice-chart'>Choice 3</h3>");
+                $("#chartdiv").append("<canvas id='choice-chart-3' class='choice-chart' width='400' height='400'></canvas>")
+                $("#chartdiv").append("<h3 class='choice-chart'>Choice 4</h3>");
+                $("#chartdiv").append("<canvas id='choice-chart-4' class='choice-chart' width='400' height='400'></canvas>")
+
+                var ctx1 = document.getElementById("choice-chart-1").getContext("2d");
+                var ctx2 = document.getElementById("choice-chart-2").getContext("2d");
+                var ctx3 = document.getElementById("choice-chart-3").getContext("2d");
+                var ctx4 = document.getElementById("choice-chart-4").getContext("2d");
+
+                var choiceChart1 = new Chart(ctx1).Pie(getFormattedChartData(firstChoiceData, optionsData), options);
+                var choiceChart2 = new Chart(ctx2).Pie(getFormattedChartData(secondChoiceData, optionsData), options);
+                var choiceChart3 = new Chart(ctx3).Pie(getFormattedChartData(thirdChoiceData, optionsData), options);
+                var choiceChart4 = new Chart(ctx4).Pie(getFormattedChartData(fourthChoiceData, optionsData), options);
+
+
+               
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log('Error in Operation');
+            }
+        });
+
+        function getFormattedChartData(data, optionsData) {
+            var result = [];
+            for (variable in data) {
+                result.push({
+                    value: data[variable],
+                    color: colors[variable],
+                    label: optionsData[variable]
+                })
+            }
+
+            return result;
+        }
+       
+    }
+
+
+
+
+    var options = {
+        //Boolean - Whether we should show a stroke on each segment
+        segmentShowStroke: true,
+
+        //String - The colour of each segment stroke
+        segmentStrokeColor: "#fff",
+
+        //Number - The width of each segment stroke
+        segmentStrokeWidth: 2,
+
+        //Number - The percentage of the chart that we cut out of the middle
+        percentageInnerCutout: 50, // This is 0 for Pie charts
+
+        //Number - Amount of animation steps
+        animationSteps: 100,
+
+        //String - Animation easing effect
+        animationEasing: "easeOutBounce",
+
+        //Boolean - Whether we animate the rotation of the Doughnut
+        animateRotate: true,
+
+        //Boolean - Whether we animate scaling the Doughnut from the centre
+        animateScale: false,
+
+        //String - A legend template
+        legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
+
+    }
+
+
+
+    //var myPieChart = new Chart(ctx).Pie(data, options);
+
 </script>
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -211,4 +377,9 @@
         </tr>
     }
 
+
 </table>
+
+<div id="chartdiv">
+
+</div>

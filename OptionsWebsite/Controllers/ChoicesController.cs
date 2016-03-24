@@ -61,12 +61,14 @@ namespace OptionsWebsite.Controllers
 
             var yearTerms = db.YearTerms.Where(y => y.IsDefault == false).ToList();
             var defaultyearTerms = db.YearTerms.Where(y => y.IsDefault == true).SingleOrDefault();
-            var s = new List<string>();
-            s.Add(defaultyearTerms.Year +  " "  + Terms[defaultyearTerms.Term]);
+            var s = new List<SelectListItem>();
+            //s.Add(defaultyearTerms.Year +  " "  + Terms[defaultyearTerms.Term]);
+            s.Add(new SelectListItem { Text = defaultyearTerms.Year + " " + Terms[defaultyearTerms.Term], Value = defaultyearTerms.YearTermId + ""});
             foreach (var v in yearTerms) {
-                s.Add(v.Year + " " + Terms[v.Term]);
+                //s.Add(v.Year + " " + Terms[v.Term]);
+                s.Add(new SelectListItem {Text= v.Year + " " + Terms[v.Term], Value = v.YearTermId + "" });
             }
-            ViewBag.YearTerms = new SelectList(s);
+            ViewBag.YearTerms = new SelectList(s, "Value", "Text");
 
             var r = new List<string>();
             r.Add("Details Report");
