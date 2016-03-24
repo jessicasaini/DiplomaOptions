@@ -13,7 +13,11 @@ using Microsoft.AspNet.Identity;
 namespace OptionsWebsite.Controllers
 {
     public class RolesController : Controller
+
+   
     {
+
+
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Roles
@@ -58,7 +62,7 @@ namespace OptionsWebsite.Controllers
             
             ApplicationUser user = db.Users.Where(u => u.Id == UserId).SingleOrDefault();
             if ((user.UserName == "a00111111" || user.UserName == "A00111111") && Name == "Admin") {
-                ViewBag.Message = "You cannot remove this user form this role!";
+     
                 return RedirectToAction("UserRoles", "Roles", new { Id = UserId, UserName = user.UserName });
             }
             ViewBag.Message = "";
