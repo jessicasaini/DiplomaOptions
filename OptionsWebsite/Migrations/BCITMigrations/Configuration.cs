@@ -17,14 +17,20 @@ namespace OptionsWebsite.Migrations.BCITMigrations
         protected override void Seed(OptionsWebsite.Models.BCITModels.BCITContext context)
         {
             context.YearTerms.AddOrUpdate(
-          y => new { y.Year, y.Term },
-          DummyData.GetYearTerm().ToArray()
-      );
+                y => new { y.Year, y.Term },
+                DummyData.GetYearTerm().ToArray()
+            );
             context.SaveChanges();
 
             context.Options.AddOrUpdate(
                 o => new { o.Title },
                 DummyData.GetOption().ToArray()
+            );
+            context.SaveChanges();
+
+            context.Choices.AddOrUpdate(
+                c => new { c.StudentId, c.StudentFirstName, c.StudentLastName },
+                DummyData.GetChoices().ToArray()
             );
             context.SaveChanges();
 

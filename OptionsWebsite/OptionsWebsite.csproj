@@ -206,15 +206,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\BCITMigrations\201602152116282_InitialCreate.cs" />
-    <Compile Include="Migrations\BCITMigrations\201602152116282_InitialCreate.Designer.cs">
-      <DependentUpon>201602152116282_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\BCITMigrations\201603250754232_InitialCreate.cs" />
+    <Compile Include="Migrations\BCITMigrations\201603250754232_InitialCreate.Designer.cs">
+      <DependentUpon>201603250754232_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\BCITMigrations\Configuration.cs" />
-    <Compile Include="Migrations\IdentityMigrations\201602152234215_InitialCreate.cs" />
-    <Compile Include="Migrations\IdentityMigrations\201602152234215_InitialCreate.Designer.cs">
-      <DependentUpon>201602152234215_InitialCreate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\IdentityMigrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -233,9 +229,6 @@
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -320,11 +313,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\BCITMigrations\201602152116282_InitialCreate.resx">
-      <DependentUpon>201602152116282_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\IdentityMigrations\201602152234215_InitialCreate.resx">
-      <DependentUpon>201602152234215_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\BCITMigrations\201603250754232_InitialCreate.resx">
+      <DependentUpon>201603250754232_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
