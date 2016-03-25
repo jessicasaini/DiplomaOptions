@@ -19,9 +19,6 @@
 
     $(document).ready(function () {
         $("#report").click(function () {
-            //if ($("#ReportTypes").val()) {
-            //    console.err
-            //
 
             if( $("#ReportTypes").val() == "Details Report" ){
                 $.ajax({
@@ -37,8 +34,6 @@
                     }
                 });
             } else if ($("#ReportTypes").val() == "Chart") {
-                console.log("YOOO");
-                console.log($("#YearTerms").val())
                 $.ajax({
                     url: 'http://localhost:56503/api/choices',
                     type: 'GET',
@@ -55,10 +50,9 @@
         });
     });
     function FilterData(data, yearTermData) {
-        var yt = document.getElementById('YearTerms').value;
+        var yt = $("#YearTerms option:selected").text();
         var x = yt.split(' ')
         var term = x[1];
-        console.log("term" + term);
         var year = yt.match(/\d+/);
         var termId = 10;
         switch (term) {
@@ -90,7 +84,6 @@
         });
 
         console.log(filtered);
-
         getOptions(filtered);
 
     }
@@ -215,12 +208,6 @@
                         }
                     }
                 }
-
-                console.log(firstChoiceData);
-                console.log(secondChoiceData);
-                console.log(thirdChoiceData);
-                console.log(fourthChoiceData);
-
                 $(".choice-chart").remove();
 
                 $("#chartdiv").append("<h3 class='choice-chart'>Choice 1</h3>");
@@ -297,10 +284,6 @@
         legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
 
     }
-
-
-
-    //var myPieChart = new Chart(ctx).Pie(data, options);
 
 </script>
 <p>

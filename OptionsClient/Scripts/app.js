@@ -36,6 +36,8 @@ app.controller('myCtrl', function ($scope, $http, $window) {
             //TODO fill this out
             console.log("failed");
             console.log(response);
+            $("#loginError").html("<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>" + response.data.error_description + "</div>");
+
         }
 
         $http.post("http://localhost:56503/Token", data).then(onSuccess, onFailure);
@@ -67,6 +69,32 @@ app.controller('myCtrl', function ($scope, $http, $window) {
             //TODO fill this out
             console.log("failed");
             console.log(response);
+
+            var str = "<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>";
+            if (response.data.ModelState) {
+
+                if (response.data.ModelState["model.Email"]) {
+                    str += response.data.ModelState["model.Email"][0] + "</br>";
+                }
+                if (response.data.ModelState["model.Password"]) {
+                    str += response.data.ModelState["model.Password"][0] + "</br>";
+                }
+                if (response.data.ModelState["model.Username"]) {
+                    str += response.data.ModelState["model.Username"][0] + "</br>";
+                }
+                if (response.data.ModelState["model.ConfirmPassword"]) {
+                    str += response.data.ModelState["model.ConfirmPassword"][0] + "</br>";
+                }
+                if (response.data.ModelState[""]) {
+                    str += response.data.ModelState[""][0] + "</br>";
+                }
+            }
+            else {
+                str += "A validation error has occurred.";
+            }
+            str += "<div>";
+            $("#regError").html(str);
+           
         }
 
         $http.post("http://localhost:56503/api/Account/Register", JSON.stringify(postObject)).then(onSuccess, onFailure);
@@ -101,12 +129,32 @@ app.controller('myCtrl', function ($scope, $http, $window) {
             //TODO fill this out
             console.log("success");
             console.log(response)
+            $("#success").html("<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>Choice successfully made</div>");
+
         }
 
         var onFailure = function (response) {
             //TODO fill this out
             console.log("failed");
             console.log(response);
+            var str = "<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>";
+            if (response.data.ModelState) {
+
+                if (response.data.ModelState["choice"]) {
+                    str += response.data.ModelState["choice"][0] + "</br>";
+                }
+                if (response.data.ModelState["choice.StudentFirstName"]) {
+                    str += response.data.ModelState["choice.StudentFirstName"][0] + "</br>";
+                }
+                if (response.data.ModelState["choice.StudentLastName"]) {
+                    str += response.data.ModelState["choice.StudentLastName"][0] + "</br>";
+                }
+            }
+            else {
+                str += "A validation error has occurred.";
+            }
+            str += "<div>";
+            $("#optError").html(str);
         }
 
         $http.post("http://localhost:56503/api/Choices", JSON.stringify(postObject))
@@ -118,6 +166,7 @@ app.controller('myCtrl', function ($scope, $http, $window) {
         sessionStorage.removeItem(tokenKey);
         sessionStorage.removeItem(userName);
         $window.location.reload();
+
     }
 
 
