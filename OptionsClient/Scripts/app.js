@@ -40,7 +40,7 @@ app.controller('myCtrl', function ($scope, $http, $window) {
 
         }
 
-        $http.post("http://localhost:56503/Token", data).then(onSuccess, onFailure);
+        $http.post("http://a2b.jessicasaini.xyz/Token", data).then(onSuccess, onFailure);
     };
 
     $scope.register = function () {
@@ -97,7 +97,7 @@ app.controller('myCtrl', function ($scope, $http, $window) {
            
         }
 
-        $http.post("http://localhost:56503/api/Account/Register", JSON.stringify(postObject)).then(onSuccess, onFailure);
+        $http.post("http://a2b.jessicasaini.xyz/api/Account/Register", JSON.stringify(postObject)).then(onSuccess, onFailure);
     };
 
     $scope.select = function () {
@@ -157,7 +157,7 @@ app.controller('myCtrl', function ($scope, $http, $window) {
             $("#optError").html(str);
         }
 
-        $http.post("http://localhost:56503/api/Choices", JSON.stringify(postObject))
+        $http.post("http://a2b.jessicasaini.xyz/api/Choices", JSON.stringify(postObject))
             .then(onSuccess, onFailure);
 
     }
@@ -172,7 +172,7 @@ app.controller('myCtrl', function ($scope, $http, $window) {
 
     $scope.options = [];
     //populate the options dropdown
-    $http.get("http://localhost:56503/api/Options")
+    $http.get("http://a2b.jessicasaini.xyz/api/Options")
     .then(function (response) {
         console.log(response.data);
 

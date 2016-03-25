@@ -206,9 +206,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\BCITMigrations\201603250754232_InitialCreate.cs" />
-    <Compile Include="Migrations\BCITMigrations\201603250754232_InitialCreate.Designer.cs">
-      <DependentUpon>201603250754232_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\BCITMigrations\201603251930059_InitialCreate.cs" />
+    <Compile Include="Migrations\BCITMigrations\201603251930059_InitialCreate.Designer.cs">
+      <DependentUpon>201603251930059_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\BCITMigrations\Configuration.cs" />
     <Compile Include="Migrations\IdentityMigrations\Configuration.cs" />
@@ -313,8 +313,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\BCITMigrations\201603250754232_InitialCreate.resx">
-      <DependentUpon>201603250754232_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\BCITMigrations\201603251930059_InitialCreate.resx">
+      <DependentUpon>201603251930059_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
