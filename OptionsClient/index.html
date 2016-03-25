@@ -13,7 +13,7 @@
 </head>
 <body>
     <div ng-app="myApp" ng-controller="myCtrl">
-
+        <div id="success"></div>
         <div class="col-sm-4" ng-if=(!token)>
             <div id="loginError"></div>
             <h3>Log In</h3>
@@ -60,39 +60,40 @@
         </div>
 
         <div class="col-sm-4" ng-if=(token)>
+            <div id="optError"></div>
             <form>
                 <h3>Select Option</h3>
                 <div class="form-group">
                     <label>Student Number</label>
-                    <input class="form-control" type="text" ng-model="$parent.username"  ng-disabled="true"/>
+                    <input class="form-control" type="text" ng-model="$parent.username"  ng-disabled="true" required/>
                 </div>
                 <div class="form-group">
                     <label>First Name</label>
-                    <input class="form-control" type="text" ng-model="$parent.firstName" />
+                    <input class="form-control" type="text" ng-model="$parent.firstName" required/>
                 </div>
                 <div class="form-group">
                     <label>Last Name</label>
-                    <input class="form-control" type="text" ng-model="$parent.lastName" />
+                    <input class="form-control" type="text" ng-model="$parent.lastName"  required/>
                 </div>
 
                 <div class="form-group">
                     <label for="option1">First Choice:</label>
-                    <select class="form-control" ng-options="item as item.Title for item in options track by item.OptionId" ng-model="$parent.firstChoice" id="option1"> </select>
+                    <select class="form-control" ng-options="item as item.Title for item in options track by item.OptionId" ng-model="$parent.firstChoice" id="option1 required"> </select>
                 </div>
 
                 <div class="form-group">
                     <label for="option2">Second Choice:</label>
-                    <select class="form-control" ng-options="item as item.Title for item in options track by item.OptionId" ng-model="$parent.secondChoice" id="option2"> </select>
+                    <select class="form-control" ng-options="item as item.Title for item in options track by item.OptionId" ng-model="$parent.secondChoice" id="option2" required> </select>
                 </div>
 
                 <div class="form-group">
                     <label for="option3">Third Choice:</label>
-                    <select class="form-control" ng-options="item as item.Title for item in options track by item.OptionId" ng-model="$parent.thirdChoice" id="option3"> </select>
+                    <select class="form-control" ng-options="item as item.Title for item in options track by item.OptionId" ng-model="$parent.thirdChoice" id="option3" required> </select>
                 </div>
 
                 <div class="form-group">
                     <label for="option4">Fourth Choice:</label>
-                    <select class="form-control" ng-options="item as item.Title for item in options track by item.OptionId" ng-model="$parent.fourthChoice" id="option4"> </select>
+                    <select class="form-control" ng-options="item as item.Title for item in options track by item.OptionId" ng-model="$parent.fourthChoice" id="option4" required> </select>
                 </div>
 
                 <div class="form-group">
