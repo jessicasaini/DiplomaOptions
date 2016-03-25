@@ -36,6 +36,8 @@ app.controller('myCtrl', function ($scope, $http, $window) {
             //TODO fill this out
             console.log("failed");
             console.log(response);
+            $("#loginError").html("<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>" + response.data.error_description + "</div>");
+
         }
 
         $http.post("http://localhost:56503/Token", data).then(onSuccess, onFailure);
@@ -67,6 +69,14 @@ app.controller('myCtrl', function ($scope, $http, $window) {
             //TODO fill this out
             console.log("failed");
             console.log(response);
+
+            var str = "<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>";
+            if (response.data.error_description) {
+
+                str += response.data.error_description;
+            }
+            str += "<div>";
+
         }
 
         $http.post("http://localhost:56503/api/Account/Register", JSON.stringify(postObject)).then(onSuccess, onFailure);

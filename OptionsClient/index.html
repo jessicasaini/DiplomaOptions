@@ -15,15 +15,16 @@
     <div ng-app="myApp" ng-controller="myCtrl">
 
         <div class="col-sm-4" ng-if=(!token)>
+            <div id="loginError"></div>
             <h3>Log In</h3>
             <form>
                 <div class="form-group">
                     <label>Username</label>
-                    <input class="form-control" type="text" ng-model="$parent.username" />
+                    <input class="form-control" type="text" ng-model="$parent.username" required/>
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input class="form-control" type="password" ng-model="$parent.password" />
+                    <input class="form-control" type="password" ng-model="$parent.password" required/>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-default" ng-click="login()">Log In</button>
@@ -33,23 +34,24 @@
 
 
         <div class="col-sm-4" ng-if=(!token)>
+            <div id="regError"></div>
             <form>
                 <h3>Register</h3>
                 <div class="form-group">
                     <label>Username</label>
-                    <input class="form-control" type="text" ng-model="$parent.username"/>
+                    <input class="form-control" type="text" ng-model="$parent.username" required/>
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input class="form-control" type="text"  ng-model="$parent.email" />
+                    <input class="form-control" type="text"  ng-model="$parent.email" required/>
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input class="form-control" type="password" ng-model="$parent.password" />
+                    <input class="form-control" type="password" ng-model="$parent.password" required />
                 </div>
                 <div class="form-group">
                     <label>Confirm Password</label>
-                    <input class="form-control" type="password" ng-model="$parent.password2" />
+                    <input class="form-control" type="password" ng-model="$parent.password2"required />
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-default" ng-click="register()">Register</button>
